@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "@types/pg": "^8.6.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
@@ -17,7 +18,7 @@
     "typeorm": "^0.2.37"
   },
   "scripts": {
-    "start": "tsc && nodemon server.js",
+    "start": "tsc && nodemon index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --pretty --transpile-only index.ts"
   },

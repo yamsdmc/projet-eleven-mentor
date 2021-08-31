@@ -1,11 +1,13 @@
-import "reflect-metadata";
+// const userRoutes = require("./src/router/router");
+import bodyParser from "body-parser";
+import cors from "cors";
 import * as dotenv from "dotenv";
 import express from "express";
-import cors from "cors";
 import helmet from "helmet";
-// const userRoutes = require("./src/router/router");
-const bodyParser = require("body-parser");
+import "reflect-metadata";
+import { client } from "./Database";
 
+client.connect().catch((e) => console.log(e));
 /**
  * Required External Modules
  */
@@ -28,11 +30,11 @@ app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader(
         "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
+        "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization",
     );
     res.setHeader(
         "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+        "GET, POST, PUT, DELETE, PATCH, OPTIONS",
     );
     next();
 });
