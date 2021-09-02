@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DogBreed = void 0;
 var typeorm_1 = require("typeorm");
-var DogBreed = /** @class */ (function () {
+var DogBreedEntity = /** @class */ (function () {
     function DogBreed() {
     }
     __decorate([
@@ -35,4 +35,4 @@ var DogBreed = /** @class */ (function () {
     ], DogBreed);
     return DogBreed;
 }());
-exports.DogBreed = DogBreed;
+exports.DogBreed = DogBreedEntity;

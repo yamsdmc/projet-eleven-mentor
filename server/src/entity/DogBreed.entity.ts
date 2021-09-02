@@ -1,7 +1,7 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class DogBreed {
+export class DogBreedEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -13,4 +13,7 @@ export class DogBreed {
 
     @Column()
     image: string;
+
+    @Column()
+    likes: number;
 }

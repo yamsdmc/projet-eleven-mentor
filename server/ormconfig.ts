@@ -13,6 +13,7 @@ const config: ConnectionOptions = {
     cli: {
         migrationsDir: "src/migrations",
     },
+    synchronize: true,
 };
 
 export = config;
