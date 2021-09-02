@@ -5,5 +5,5 @@ export const client = new Pool({
     host: process.env.PGHOST,
     database: process.env.PGDATABASE,
     password: process.env.PGPASSWORD,
-    port: 5432,
+    port: Number(process.env.PGPORT),
 });

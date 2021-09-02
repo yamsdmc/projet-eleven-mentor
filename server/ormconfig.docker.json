@@ -4,7 +4,7 @@
   "port": 8000,
   "username": "postgres",
   "password": "postgres",
-  "database": "dog-db",
+  "database": "postgres",
   "synchronize": true,
   "logging": false,
   "entities": ["dist/src/entity/**/*"],

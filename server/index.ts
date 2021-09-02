@@ -7,7 +7,7 @@ import helmet from "helmet";
 import "reflect-metadata";
 import { client } from "./Database";
 
-client.connect().catch((e) => console.log(e));
+client.connect().then((success) => console.log(success)).catch((e) => console.log(e));
 /**
  * Required External Modules
  */
