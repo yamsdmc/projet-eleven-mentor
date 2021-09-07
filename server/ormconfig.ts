@@ -1,15 +1,14 @@
 import { ConnectionOptions } from "typeorm";
+import { join } from "path";
 
 const config: ConnectionOptions = {
     type: "postgres",
-    host: process.env.PGHOST,
-    port: Number(process.env.PGPORT),
-    username: process.env.PGUSER,
-    password: process.env.PGPASSWORD,
-    database: process.env.PGDATABASE,
-    entities: [
-        __dirname + "/../**/*.entity{.ts,.js}",
-    ],
+    host: "localhost",
+    port: 5432,
+    username: "postgres",
+    password: "postgres",
+    database: "dog-db",
+    entities: [join(__dirname, "/**/**.entity{.ts,.js}")],
     cli: {
         migrationsDir: "src/migrations",
     },

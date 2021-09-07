@@ -5,47 +5,46 @@ import * as dotenv from "dotenv";
 import express from "express";
 import helmet from "helmet";
 import "reflect-metadata";
-import { client } from "./Database";
+import { createConnection } from "typeorm";
 
-client.connect().then((success) => console.log(success)).catch((e) => console.log(e));
 /**
  * Required External Modules
  */
 dotenv.config();
 
-/**
- * App Variables
- */
-if (!process.env.PORT) {
-    process.exit(1);
-}
-const app = express();
+createConnection().then(async connection => {
+    const app = express();
+    await connection.synchronize();
+    await connection.runMigrations();
+    app.use(helmet());
+    app.use(express.json());
 
-/**
- *  App Configuration
- */
-app.use(helmet());
-app.use(express.json());
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization",
-    );
-    res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-    );
-    next();
-});
-app.use(bodyParser.json());
-// app.use("/api", userRoutes);
-app.use(cors());
+    // Ajouter les routes API REST
 
-/**
- * Server Activation
- */
+    app.use((req, res, next) => {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.setHeader(
+            "Access-Control-Allow-Headers",
+            "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization",
+        );
+        res.setHeader(
+            "Access-Control-Allow-Methods",
+            "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+        );
+        next();
+    });
+    app.use(bodyParser.json());
+    // app.use("/api", userRoutes);
+    app.use(cors());
+    
+    /**
+     * Server Activation
+     */
+    
+    app.listen(process.env.PORT, () => {
+        console.log(`Listening on port ${process.env.PORT}`);
+    });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Listening on port ${process.env.PORT}`);
-});
+    console.log("Express application is up and running on port 3000");
+
+}).catch(error => console.log("TypeORM connection error: ", error));
