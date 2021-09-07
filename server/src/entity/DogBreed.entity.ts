@@ -5,11 +5,14 @@ export class DogBreedEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({length: 100})
+    @Column({ length: 100 })
     name: string;
 
     @Column()
     description: string;
+
+    @Column()
+    test: string;
 
     @Column()
     image: string;

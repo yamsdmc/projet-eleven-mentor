@@ -7,14 +7,19 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_DB: dog-db
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
     ports:
-      - '8000:8000'
-  web:
-    image: node-docker
-    depends_on:
-      - db
+      - '5432:5432'
+
+  adminer:
+    image: adminer
+    restart: always
     ports:
-      - '4000:4000'
+      - 8090:8080
+
+  # ajouter la partie node avec le DockerFile
+
+volumes:
+  pgdata: {}
 
 
