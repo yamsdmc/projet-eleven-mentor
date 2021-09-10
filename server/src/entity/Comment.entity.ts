@@ -1,14 +1,14 @@
 import {Column, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {DogBreedEntity} from "./DogBreed.entity";
+import {DogBreed} from "./DogBreed.entity";
 
 @Entity()
-export class CommentEntity {
+export class Comment {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
     comment: string;
 
-    @ManyToOne(() => DogBreedEntity, (dogBreedEntity) => dogBreedEntity.comment)
-    breed: DogBreedEntity;
+    @ManyToOne(() => DogBreed, (dogBreedEntity) => dogBreedEntity.comment)
+    breed: DogBreed;
 }
