@@ -1,4 +1,5 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {CommentEntity} from "./Comment.entity";
 
 @Entity()
 export class DogBreedEntity {
@@ -12,11 +13,11 @@ export class DogBreedEntity {
     description: string;
 
     @Column()
-    test: string;
-
-    @Column()
     image: string;
 
     @Column()
     likes: number;
+
+    @OneToMany(() => CommentEntity, (commentEntity) => commentEntity.breed)
+    comment: CommentEntity[];
 }

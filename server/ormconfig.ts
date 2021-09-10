@@ -1,5 +1,5 @@
-import { ConnectionOptions } from "typeorm";
 import { join } from "path";
+import { ConnectionOptions } from "typeorm";
 
 const config: ConnectionOptions = {
     type: "postgres",

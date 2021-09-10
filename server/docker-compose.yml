@@ -10,15 +10,25 @@ services:
       - pgdata:/var/lib/postgresql/data
     ports:
       - '5432:5432'
-
   adminer:
     image: adminer
     restart: always
     ports:
       - 8090:8080
-
-  # ajouter la partie node avec le DockerFile
-
+  web:
+    image: node-docker
+    depends_on:
+      - db
+    ports:
+      - "4000:4000"
+  nodejs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: nodejs
+    container_name: nodejs
+    restart: unless-stopped
+    env_file: .env
 volumes:
   pgdata: {}
 

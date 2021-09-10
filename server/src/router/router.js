@@ -1,8 +1,9 @@
 const express = require("express");
 const router = express.Router();
-// const userCtrl = require("../controllers/user");
-//
-// router.post("/send", userCtrl.sendMessage);
-// router.get("/message", userCtrl.getMessage);
+import {BreedController} from "../Controller/BreedController"
+
+router.get("/listing-breed", BreedController.all);
+router.get("/breed/:id", BreedController.one);
+
 
 module.exports = router;

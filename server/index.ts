@@ -12,7 +12,7 @@ import { createConnection } from "typeorm";
  */
 dotenv.config();
 
-createConnection().then(async connection => {
+createConnection().then(async (connection) => {
     const app = express();
     await connection.synchronize();
     await connection.runMigrations();
@@ -20,7 +20,7 @@ createConnection().then(async connection => {
     app.use(express.json());
 
     // Ajouter les routes API REST
-
+    // app.use("/api", userRoutes);
     app.use((req, res, next) => {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader(
@@ -34,17 +34,14 @@ createConnection().then(async connection => {
         next();
     });
     app.use(bodyParser.json());
-    // app.use("/api", userRoutes);
     app.use(cors());
-    
     /**
      * Server Activation
      */
-    
     app.listen(process.env.PORT, () => {
         console.log(`Listening on port ${process.env.PORT}`);
     });
 
     console.log("Express application is up and running on port 3000");
 
-}).catch(error => console.log("TypeORM connection error: ", error));
+}).catch((error) => console.log("TypeORM connection error: ", error));
