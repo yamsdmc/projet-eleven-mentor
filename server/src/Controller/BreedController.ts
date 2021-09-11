@@ -21,6 +21,7 @@ export class BreedController {
         const breed = new DogBreed();
         breed.image = request.params.image;
         breed.name = request.params.name;
+        breed.date = new Date();
         breed.description = request.params.description;
         return await this.manager.save(breed);
     }

@@ -6,6 +6,9 @@ export class DogBreed {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @Column()
+    date: Date;
+
     @Column({ length: 100 })
     name: string;
 

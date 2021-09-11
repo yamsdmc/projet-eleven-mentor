@@ -7,7 +7,7 @@ export class Comment {
     id: number;
 
     @Column()
-    date: Date = new Date();
+    date: Date;
 
     @Column()
     comment: string;
