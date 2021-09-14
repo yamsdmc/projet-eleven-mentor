@@ -7,6 +7,9 @@ export class Comment {
     id: number;
 
     @Column()
+    date: Date;
+
+    @Column()
     comment: string;
 
     @ManyToOne(() => DogBreed, (dogBreedEntity) => dogBreedEntity.comment)
