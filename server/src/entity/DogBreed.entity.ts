@@ -1,4 +1,4 @@
-import {Column, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import {Comment} from "./Comment.entity";
 
 @Entity()
@@ -6,11 +6,11 @@ export class DogBreed {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    date: Date;
-
     @Column({ length: 100 })
     name: string;
+
+    @CreateDateColumn({ type: "timestamp" })
+    createdAt: Date;
 
     @Column()
     description: string;

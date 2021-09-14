@@ -1,4 +1,3 @@
-// const userRoutes = require("./src/router/router");
 import bodyParser from "body-parser";
 import cors from "cors";
 import * as dotenv from "dotenv";
@@ -6,6 +5,7 @@ import express from "express";
 import helmet from "helmet";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import {router} from "./src/router/router";
 
 /**
  * Required External Modules
@@ -19,8 +19,7 @@ createConnection().then(async (connection) => {
     app.use(helmet());
     app.use(express.json());
 
-    // Ajouter les routes API REST
-    // app.use("/api", userRoutes);
+    app.use("/api", router);
     app.use((req, res, next) => {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader(
