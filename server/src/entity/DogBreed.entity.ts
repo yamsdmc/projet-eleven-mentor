@@ -6,7 +6,7 @@ export class DogBreed {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ length: 100 })
+    @Column()
     name: string;
 
     @CreateDateColumn({ type: "timestamp" })

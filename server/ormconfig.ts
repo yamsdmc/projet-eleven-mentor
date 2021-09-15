@@ -11,6 +11,7 @@ const config: ConnectionOptions = {
     entities: [join(__dirname, "/**/**.entity{.ts,.js}")],
     cli: {
         migrationsDir: "src/migrations",
+        entitiesDir: "src/entity",
     },
     synchronize: true,
 };
