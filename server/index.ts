@@ -5,6 +5,7 @@ import express from "express";
 import helmet from "helmet";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
+import BreedController from "./src/Controller/BreedController";
 import {router} from "./src/router/router";
 
 /**
@@ -18,7 +19,6 @@ createConnection().then(async (connection) => {
     await connection.runMigrations();
     app.use(helmet());
     app.use(express.json());
-
     app.use("/api", router);
     app.use((req, res, next) => {
         res.setHeader("Access-Control-Allow-Origin", "*");

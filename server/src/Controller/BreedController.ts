@@ -1,8 +1,20 @@
-import {Request} from "express";
+import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
 
 class BreedController {
+
+    async add(request: Request, response: Response) {
+        const {body} = request;
+        const breedRepository = getRepository(DogBreed);
+        const breed = breedRepository.create({
+            name: body.name,
+            description: body.description,
+            image: body.image,
+        });
+        return breedRepository.save(breed);
+    }
+
     async all() {
         const breedRepository = getRepository(DogBreed);
         return breedRepository.find();
@@ -11,20 +23,6 @@ class BreedController {
     async one(request: Request) {
         const breedRepository = getRepository(DogBreed);
         return breedRepository.findOne(request.params.id);
-    }
-
-    async add(request: Request) {
-        const {params} = request;
-        const breedRepository = getRepository(DogBreed);
-        const breed = breedRepository.create({
-            image: params.image,
-            name: params.name,
-            description: params.description,
-        });
-        console.log(breed.image, "image");
-        console.log(breed.name, "name");
-        console.log(breed.description, "description");
-        return breedRepository.save(breed);
     }
 
     async delete(request: Request) {

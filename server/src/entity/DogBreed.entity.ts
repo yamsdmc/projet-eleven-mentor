@@ -6,11 +6,11 @@ export class DogBreed {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
+    createdAt: Date;
+
     @Column()
     name: string;
-
-    @CreateDateColumn({ type: "timestamp" })
-    createdAt: Date;
 
     @Column()
     description: string;
@@ -18,7 +18,7 @@ export class DogBreed {
     @Column()
     image: string;
 
-    @Column()
+    @Column({nullable: true})
     likes: number;
 
     @OneToMany(() => Comment, (commentEntity) => commentEntity.breed)
