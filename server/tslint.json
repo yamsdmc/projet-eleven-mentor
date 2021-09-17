@@ -6,7 +6,8 @@
         "no-console": false,
         "object-literal-sort-keys": false,
         "member-access": [true, "no-public"],
-        "eofline": true
+        "eofline": true,
+        "no-shadowed-variable": true
     },
     "rulesDirectory": []
 }

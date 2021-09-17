@@ -5,7 +5,6 @@ import express from "express";
 import helmet from "helmet";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import BreedController from "./src/Controller/BreedController";
 import {router} from "./src/router/router";
 
 /**

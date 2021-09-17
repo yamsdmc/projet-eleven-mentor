@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c586a7f-a0f9-402d-84fc-98111dc5b8a7" name="Default Changelist" comment="merger return solved">
+    <list default="true" id="5c586a7f-a0f9-402d-84fc-98111dc5b8a7" name="Default Changelist" comment="test">
+      <change afterPath="$PROJECT_DIR$/server/CollectionPostman.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Controller/BreedController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/Controller/BreedController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/entity/DogBreed.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/entity/DogBreed.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/Controller/BreedController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controller/BreedController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/router/router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/router/router.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/tslint.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/tslint.json" afterDir="false" />
     </list>
@@ -29,7 +30,7 @@
     <setting file="file://$PROJECT_DIR$/server/src/entity/DogBreed.entity.ts" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/docker-compose.yml" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/tslint.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/server/src/Controller/BreedController.ts" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/server/src/controller/BreedController.ts" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/tsconfig.json" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/server/package.json" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -77,8 +78,16 @@
       <workItem from="1630396100140" duration="517000" />
       <workItem from="1630430492000" duration="9216000" />
       <workItem from="1630949882516" duration="2838000" />
-      <workItem from="1631869687500" duration="3161000" />
+      <workItem from="1631869687500" duration="9304000" />
     </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1631876409687</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1631876409687</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,5 +112,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
   </component>
 </project>

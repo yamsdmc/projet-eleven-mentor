@@ -21,7 +21,7 @@
       "start": "nodemon index.ts",
       "test": "echo \"Error: no test specified\" && exit 1",
       "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.ts",
-      "dev": "ts-node-dev --respawn --pretty --transpile-only index.ts"
+      "dev": "ts-node-dev --trace-warnings --unhandled-rejections=strict --respawn --pretty --transpile-only index.ts"
    },
    "author": "",
    "license": "ISC",
