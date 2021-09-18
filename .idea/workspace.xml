@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5c586a7f-a0f9-402d-84fc-98111dc5b8a7" name="Default Changelist" comment="test">
-      <change afterPath="$PROJECT_DIR$/server/CollectionPostman.json" afterDir="false" />
+    <list default="true" id="5c586a7f-a0f9-402d-84fc-98111dc5b8a7" name="Default Changelist" comment="add response json in method breedController">
+      <change afterPath="$PROJECT_DIR$/server/src/joi/breed/addBreedSchema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/src/utils/uploadImage.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/Controller/BreedController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controller/BreedController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/controller/BreedController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/controller/BreedController.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/src/router/router.ts" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/router/router.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/tslint.json" beforeDir="false" afterPath="$PROJECT_DIR$/server/tslint.json" afterDir="false" />
     </list>
@@ -49,7 +50,7 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/client/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/server/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -57,6 +58,7 @@
       <recent name="$PROJECT_DIR$/server/src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/server/src/joi/breed" />
       <recent name="$PROJECT_DIR$/server" />
       <recent name="$PROJECT_DIR$/server/src" />
       <recent name="$PROJECT_DIR$/client" />
@@ -78,7 +80,8 @@
       <workItem from="1630396100140" duration="517000" />
       <workItem from="1630430492000" duration="9216000" />
       <workItem from="1630949882516" duration="2838000" />
-      <workItem from="1631869687500" duration="9304000" />
+      <workItem from="1631869687500" duration="10834000" />
+      <workItem from="1631993123964" duration="6610000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1631876409687</created>
@@ -87,7 +90,14 @@
       <option name="project" value="LOCAL" />
       <updated>1631876409687</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add response json in method breedController">
+      <created>1631896105698</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1631896105698</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +125,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="add response json in method breedController" />
+    <option name="LAST_COMMIT_MESSAGE" value="add response json in method breedController" />
   </component>
 </project>
