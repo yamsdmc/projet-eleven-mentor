@@ -12,13 +12,16 @@ class BreedController {
     async add(request: IMulterRequest, response: Response) {
         const {body} = request;
         const breedRepository = getRepository(DogBreed);
-        // add check if breed name already exist in database
-        const breed = breedRepository.create({
+        const breed = await breedRepository.findOne({name: body.name});
+        if (breed) {
+            return response.json({failed: "Breed is already exist !"});
+        }
+        const breedCreated = breedRepository.create({
             name: body.name,
             description: body.description,
             image: request.file.filename,
         });
-        breedRepository.save(breed).then(() => {
+        breedRepository.save(breedCreated).then(() => {
             response.status(201).json({message: "Breed created !"});
         }).catch((error) => response.status(400).json({ error }));
     }
