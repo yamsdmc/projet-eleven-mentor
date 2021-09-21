@@ -8,7 +8,8 @@
         "member-access": [true, "no-public"],
         "eofline": true,
         "no-shadowed-variable": false,
-        "interface-name": false
+        "interface-name": false,
+        "no-trailing-whitespace": true
     },
     "rulesDirectory": []
 }
