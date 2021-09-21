@@ -2,6 +2,8 @@ import {Request, Response} from "express";
 import {File} from "multer";
 import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
+import {addBreedSchema} from "../joi/breed/addBreedSchema";
+import {error} from "util";
 
 interface IMulterRequest extends Request {
     file: File;
@@ -12,18 +14,23 @@ class BreedController {
     async add(request: IMulterRequest, response: Response) {
         const {body} = request;
         const breedRepository = getRepository(DogBreed);
-        const breed = await breedRepository.findOne({name: body.name});
-        if (breed) {
+        const doesExist = await breedRepository.findOne({name: body.name});
+        if (doesExist) {
             return response.json({failed: "Breed is already exist !"});
         }
-        const breedCreated = breedRepository.create({
-            name: body.name,
-            description: body.description,
-            image: request.file.filename,
-        });
-        breedRepository.save(breedCreated).then(() => {
-            response.status(201).json({message: "Breed created !"});
-        }).catch((error) => response.status(400).json({ error }));
+        try {
+            const result = await addBreedSchema.validateAsync({
+                name: body.name,
+                description: body.description,
+                image: request.file.filename,
+            });
+            const breedCreated = breedRepository.create(result);
+            breedRepository.save(breedCreated).then(() => {
+                response.status(201).json({message: "Breed created !"});
+            }).catch((error) => response.status(400).json({ error }));
+        } catch (error) {
+            return response.json({error});
+        }
     }
 
     async all(request: Request, response: Response) {
