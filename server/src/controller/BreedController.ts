@@ -1,4 +1,4 @@
-import {Request, Response} from "express";
+import {Request, response, Response} from "express";
 import {File} from "multer";
 import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
@@ -62,6 +62,14 @@ class BreedController {
         return response.status(200);
     }
 
+    async breedRandomly(request: Request, response: Response) {
+        const breedRepository = getRepository(DogBreed);
+        const breeds = await breedRepository.find();
+        const random = Math.floor(Math.random() * breeds.length);
+        return response.status(200).json(breeds[random]);
+    }
+
+    // WIP
     async topBreed(request: Request, response: Response) {
         const {topNumber} = request.params;
         console.log(topNumber);
