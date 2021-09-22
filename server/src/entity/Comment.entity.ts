@@ -10,7 +10,10 @@ export class Comment {
     createdAt: Date;
 
     @Column()
-    comment: string;
+    pseudo: string;
+
+    @Column()
+    message: string;
 
     @ManyToOne(() => DogBreed, (dogBreedEntity) => dogBreedEntity.comment)
     breed: DogBreed;

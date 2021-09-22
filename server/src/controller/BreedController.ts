@@ -22,7 +22,7 @@ class BreedController {
             });
 
             if (await breedRepository.findOne({name})) {
-                return response.status(400).json({failed: "Breed is already exist !"});
+                return response.status(404).json({failed: "Breed is already exist !"});
             }
 
             const breedCreated = breedRepository.create(result);
@@ -38,7 +38,7 @@ class BreedController {
     async all(request: Request, response: Response) {
         const breedRepository = getRepository(DogBreed);
         const breed = await breedRepository.find();
-        return response.json({breed});
+        return response.status(200).json({breed});
     }
 
     async one(request: Request, response: Response) {
@@ -46,7 +46,7 @@ class BreedController {
         const breedRepository = getRepository(DogBreed);
         const breed = await breedRepository.findOne(id);
         if (!breed) {
-            return response.json({error: "Breed is not found"});
+            return response.status(404).json({error: "Breed is not found"});
         }
         return response.status(200).json({breed});
     }
@@ -56,10 +56,22 @@ class BreedController {
         const breedRepository = getRepository(DogBreed);
         const breed = await breedRepository.findOne(id);
         if (!breed) {
-            return response.status(400).json({failed: "Breed is not found"});
+            return response.status(404).json({failed: "Breed is not found"});
         }
         await breedRepository.remove(breed);
         return response.status(200);
+    }
+
+    async topBreed(request: Request, response: Response) {
+        const {topNumber} = request.params;
+        console.log(topNumber);
+        const breedRepository = getRepository(DogBreed);
+        const test = await breedRepository.find({select: ["comment"]});
+        console.log(test);
+        const top = await breedRepository.createQueryBuilder("name").limit(10);
+        console.log(typeof top);
+        // return response.status(200).json({message: top});
+
     }
 }
 
