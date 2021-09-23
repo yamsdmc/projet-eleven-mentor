@@ -18,7 +18,6 @@ createConnection().then(async (connection) => {
     await connection.runMigrations();
     app.use(helmet());
     app.use(express.json());
-
     app.use("/api", router);
     app.use((req, res, next) => {
         res.setHeader("Access-Control-Allow-Origin", "*");

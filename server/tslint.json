@@ -5,7 +5,11 @@
     "rules": {
         "no-console": false,
         "object-literal-sort-keys": false,
-        "member-access": [true, "no-public"]
+        "member-access": [true, "no-public"],
+        "eofline": true,
+        "no-shadowed-variable": false,
+        "interface-name": false,
+        "no-trailing-whitespace": true
     },
     "rulesDirectory": []
 }
