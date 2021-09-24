@@ -8,6 +8,84 @@
 		{
 			"name": "add breed",
 			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "image",
+						"value": "fdsvef",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "chiend",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "kkk",
+							"type": "text"
+						},
+						{
+							"key": "image",
+							"type": "file",
+							"src": "/Users/yamin/Desktop/2b65b307-446d-4f5d-8f38-25dd5711e146.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:3010/api/breeds",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "rfer",
+							"disabled": true
+						},
+						{
+							"key": "description",
+							"value": "rfe",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete breed",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/breeds/25",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds",
+						"25"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "random breeds",
+			"request": {
 				"method": "GET",
 				"header": [],
 				"url": null
@@ -15,7 +93,7 @@
 			"response": []
 		},
 		{
-			"name": "delete breed",
+			"name": "top breeds",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -28,7 +106,18 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://localhost:3010/api/breeds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds"
+					]
+				}
 			},
 			"response": []
 		},
@@ -37,7 +126,74 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": null
+				"url": {
+					"raw": "http://localhost:3010/api/breeds/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add comments",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"pseudo\":\"frf\",\n    \"message\": \"msg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/api/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"comments"
+					],
+					"query": [
+						{
+							"key": "pseudo",
+							"value": "rfrtr",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "one comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"comments",
+						"1"
+					]
+				}
 			},
 			"response": []
 		}
