@@ -37,14 +37,14 @@ class BreedController {
 
     async all(request: Request, response: Response) {
         const breedRepository = getRepository(DogBreed);
-        const breed = await breedRepository.find();
+        const breed = await breedRepository.find({relations: ["comments"]});
         return response.status(200).json({breed});
     }
 
     async one(request: Request, response: Response) {
         const {id} = request.params;
         const breedRepository = getRepository(DogBreed);
-        const breed = await breedRepository.findOne(id);
+        const breed = await breedRepository.findOne(id, {relations: ["comments"]});
         if (!breed) {
             return response.status(404).json({error: "Breed is not found"});
         }
@@ -64,22 +64,21 @@ class BreedController {
 
     async breedRandomly(request: Request, response: Response) {
         const breedRepository = getRepository(DogBreed);
-        const breeds = await breedRepository.find();
-        const random = Math.floor(Math.random() * breeds.length);
-        return response.status(200).json(breeds[random]);
+        const breed = await breedRepository.createQueryBuilder("dogbreed").orderBy("RANDOM()").getOne();
+        return response.status(200).json(breed);
     }
 
-    // WIP
     async topBreed(request: Request, response: Response) {
         const {topNumber} = request.params;
-        console.log(topNumber);
-        const breedRepository = getRepository(DogBreed);
-        const test = await breedRepository.find({select: ["comment"]});
-        console.log(test);
-        const top = await breedRepository.createQueryBuilder("name").limit(10);
-        console.log(typeof top);
-        // return response.status(200).json({message: top});
-
+        const topBreeds = await getRepository(DogBreed)
+            .createQueryBuilder("dogbreed")
+            .leftJoin("dogbreed.comments", "comments")
+            .addSelect("COUNT(comments.id) as commentsCount")
+            .groupBy("dogbreed.id")
+            .limit(Number(topNumber))
+            .orderBy("commentsCount", "DESC")
+            .getMany();
+        return response.status(200).json(topBreeds);
     }
 }
 

@@ -1,16 +1,27 @@
 import {Request, Response} from "express";
 import {getRepository} from "typeorm";
 import {Comment} from "../entity/Comment.entity";
+import {DogBreed} from "../entity/DogBreed.entity";
 import {addCommentSchema} from "../joi/comment/addCommentSchema";
 
 class CommentController {
 
     async add(request: Request, response: Response) {
-        const {pseudo, message} = request.body;
+        const {pseudo, message, breedId} = request.body;
+
+        const breedRepository = getRepository(DogBreed);
         const commentRepository = getRepository(Comment);
+
         try {
-            const result = await addCommentSchema.validateAsync({pseudo, message});
-            const commentCreated = commentRepository.create(result);
+            const result = await addCommentSchema.validateAsync({pseudo, message, breedId});
+            const breed = await breedRepository.findOne({id: result.breedId});
+
+            if (!breed) {
+                return response.status(404).json({message: "breed is not exist"});
+            }
+            console.log();
+            const commentCreated = commentRepository.create({pseudo: result.pseudo, message: result.message,
+                breed: {id: result.breedId} });
             await commentRepository.save(commentCreated);
             return response.status(201).json({message: "ok"});
         } catch (error) {

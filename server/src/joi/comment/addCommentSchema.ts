@@ -14,4 +14,5 @@ export const addCommentSchema = Joi.object({
             "string.empty": `"message" cannot be an empty field`,
             "any.required": `"message" is a required.`,
         }),
+    breedId: Joi.required(),
 });
