@@ -10,7 +10,7 @@ const commentController = new CommentController();
 router.get("/breeds", breedController.all);
 router.get("/breeds/randomly", breedController.breedRandomly);
 router.get("/breeds/:id", breedController.one);
-router.get("/breeds/top/:topNumber", breedController.topBreed);
+router.get("/breeds/top/:limit", breedController.topBreed);
 router.post("/breeds", uploadImage.single("image"), breedController.add);
 router.delete("/breeds/:id", breedController.delete);
 

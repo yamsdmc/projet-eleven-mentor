@@ -26,7 +26,9 @@ class BreedController {
             }
 
             const breedCreated = breedRepository.create(result);
+
             await breedRepository.save(breedCreated);
+
             return response.status(201).json({success: "Breed created !"});
 
         } catch (error) {
@@ -69,15 +71,17 @@ class BreedController {
     }
 
     async topBreed(request: Request, response: Response) {
-        const {topNumber} = request.params;
+        const {limit} = request.params;
+
         const topBreeds = await getRepository(DogBreed)
             .createQueryBuilder("dogbreed")
             .leftJoin("dogbreed.comments", "comments")
             .addSelect("COUNT(comments.id) as commentsCount")
             .groupBy("dogbreed.id")
-            .limit(Number(topNumber))
+            .limit(Number(limit))
             .orderBy("commentsCount", "DESC")
             .getMany();
+
         return response.status(200).json(topBreeds);
     }
 }
