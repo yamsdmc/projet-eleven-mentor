@@ -1,12 +1,12 @@
 import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn} from "typeorm";
-import {DogBreed} from "./DogBreed.entity";
+import {DogBreed as DogBreedEntity} from "./DogBreed.entity";
 
 @Entity()
 export class Comment {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @CreateDateColumn({ type: "timestamp" })
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)"})
     createdAt: Date;
 
     @Column()
@@ -15,6 +15,6 @@ export class Comment {
     @Column()
     message: string;
 
-    @ManyToOne(() => DogBreed, (dogBreedEntity) => dogBreedEntity.comment)
-    breed: DogBreed;
+    @ManyToOne(() => DogBreedEntity, (dogBreed) => dogBreed.comments)
+    breed: DogBreedEntity;
 }

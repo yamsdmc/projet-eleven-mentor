@@ -22,5 +22,5 @@ export class DogBreed {
     likes: number;
 
     @OneToMany(() => Comment, (commentEntity) => commentEntity.breed)
-    comment: Comment[];
+    comments: Comment[];
 }
