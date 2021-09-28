@@ -3,6 +3,7 @@ import {File} from "multer";
 import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
 import {addBreedSchema} from "../joi/breed/addBreedSchema";
+import {addLikeSchema} from "../joi/breed/addLikeSchema";
 
 interface IMulterRequest extends Request {
     file: File;
@@ -83,6 +84,28 @@ class BreedController {
             .getMany();
 
         return response.status(200).json(topBreeds);
+    }
+
+    async addLike(request: Request, response: Response) {
+        const breedRepository = getRepository(DogBreed);
+
+        try {
+            const schemaValidate = await addLikeSchema.validateAsync(request.body);
+
+            const breed = await breedRepository.findOne(schemaValidate.id);
+            if (!breed) {
+                return response.status(404).json({failed: "breed does not exist"});
+            }
+
+            schemaValidate.likes = breed.likes + 1;
+
+            const likeCreated = breedRepository.create(schemaValidate);
+            await breedRepository.save(likeCreated);
+
+            return response.status(201).json({message: "like added"});
+        } catch (error) {
+            return response.status(500).json({error});
+        }
     }
 }
 

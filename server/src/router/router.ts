@@ -12,8 +12,10 @@ router.get("/breeds/randomly", breedController.breedRandomly);
 router.get("/breeds/:id", breedController.one);
 router.get("/breeds/top/:limit", breedController.topBreed);
 router.post("/breeds", uploadImage.single("image"), breedController.add);
+router.put("/breeds/addLike", breedController.addLike);
 router.delete("/breeds/:id", breedController.delete);
 
+router.get("/comments/lastThreeComment", commentController.lastThreeComment);
 router.get("/comments/:id", commentController.one);
 router.post("/comments", commentController.add);
 router.delete("/comments/:id", commentController.delete);

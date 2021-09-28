@@ -55,6 +55,14 @@ class CommentController {
 
         return response.status(200);
     }
+
+    async lastThreeComment(request: Request, response: Response) {
+        const commentRepository = getRepository(Comment);
+
+        const lastThreeComment = await commentRepository.find({order: {createdAt: "DESC"}, take: 3});
+
+        return response.status(200).json({lastThreeComment});
+    }
 }
 
 export default CommentController;
