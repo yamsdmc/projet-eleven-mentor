@@ -56,12 +56,32 @@ class CommentController {
         return response.status(200);
     }
 
-    async lastThreeComment(request: Request, response: Response) {
+    async lastComment(request: Request, response: Response) {
+        const {limit} = request.query;
         const commentRepository = getRepository(Comment);
+        try {
+            let lastComment: Comment[];
 
-        const lastThreeComment = await commentRepository.find({order: {createdAt: "DESC"}, take: 3});
+            if (limit) {
+                lastComment = await commentRepository.find({
+                    relations: ["breed"],
+                    order: {createdAt: "DESC"},
+                    take: Number(limit),
+                });
+            } else {
+                lastComment = await commentRepository.find({
+                    relations: ["breed"],
+                    order: {
+                        createdAt: "DESC",
+                    },
+                });
+            }
 
-        return response.status(200).json({lastThreeComment});
+            return response.status(200).json({lastComment});
+        } catch (error) {
+            return response.status(404).json({error});
+        }
+
     }
 }
 

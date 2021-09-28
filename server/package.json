@@ -17,6 +17,7 @@
       "mysql": "^2.14.1",
       "pg": "^8.7.1",
       "reflect-metadata": "^0.1.10",
+      "swagger-ui": "^3.52.3",
       "typeorm": "0.2.37"
    },
    "scripts": {

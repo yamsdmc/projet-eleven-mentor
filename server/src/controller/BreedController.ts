@@ -72,7 +72,7 @@ class BreedController {
     }
 
     async topBreed(request: Request, response: Response) {
-        const {limit} = request.params;
+        const {limit} = request.query;
 
         const topBreeds = await getRepository(DogBreed)
             .createQueryBuilder("dogbreed")
@@ -91,20 +91,29 @@ class BreedController {
 
         try {
             const schemaValidate = await addLikeSchema.validateAsync(request.body);
-
             const breed = await breedRepository.findOne(schemaValidate.id);
+
             if (!breed) {
                 return response.status(404).json({failed: "breed does not exist"});
             }
 
-            schemaValidate.likes = breed.likes + 1;
-
-            const likeCreated = breedRepository.create(schemaValidate);
-            await breedRepository.save(likeCreated);
+            await breedRepository.save({id: schemaValidate.id, likes: breed.likes + 1});
 
             return response.status(201).json({message: "like added"});
         } catch (error) {
             return response.status(500).json({error});
+        }
+    }
+
+    async comments(request: Request, response: Response) {
+        const {id} = request.params;
+        const breedRepository = getRepository(DogBreed);
+
+        try {
+            const {comments} = await breedRepository.findOne(id, {relations: ["comments"]});
+            return response.status(200).json({comments});
+        } catch (error) {
+            return response.status(404).json({error});
         }
     }
 }
