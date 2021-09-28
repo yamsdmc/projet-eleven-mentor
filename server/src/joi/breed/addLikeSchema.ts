@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 export const addLikeSchema = Joi.object({
-    id: Joi.number()
+    breedId: Joi.number()
         .min(1)
         .required()
         .messages({

@@ -4,12 +4,14 @@ import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
 import {addBreedSchema} from "../joi/breed/addBreedSchema";
 import {addLikeSchema} from "../joi/breed/addLikeSchema";
-import {idSchema} from "../joi/idSchema";
 import {topBreedSchema} from "../joi/breed/topBreedSchema";
+import {breedIdSchema} from "../joi/breed/breedIdSchema";
 
 interface IMulterRequest extends Request {
     file: File;
 }
+
+const DEFAULT_TOP_LIMIT = 10;
 
 class BreedController {
     async add(request: IMulterRequest, response: Response) {
@@ -47,37 +49,35 @@ class BreedController {
     }
 
     async one(request: Request, response: Response) {
-        const {id} = request.params;
         const breedRepository = getRepository(DogBreed);
         try {
-            await idSchema.validateAsync({id});
+            const { breedId } = await breedIdSchema.validateAsync(request.params);
 
-            const breed = await breedRepository.findOne(id, {relations: ["comments"]});
+            const breed = await breedRepository.findOne(breedId, {relations: ["comments"]});
             if (!breed) {
                 return response.status(404).json({error: "Breed is not found"});
             }
 
-            return response.status(200).json({breed});
+            return response.status(200).json({ breed });
         } catch (error) {
-            return response.status(404).json({error})
+            return response.status(404).json({ error });
         }
     }
 
     async delete(request: Request, response: Response) {
-        const {id} = request.params;
         const breedRepository = getRepository(DogBreed);
 
         try {
-            await idSchema.validateAsync({id});
+            const { breedId } = await breedIdSchema.validateAsync(request.params);
 
-            const breed = await breedRepository.findOne(id);
+            const breed = await breedRepository.findOne(breedId);
             if (!breed) {
                 return response.status(404).json({failed: "Breed is not found"});
             }
 
             await breedRepository.remove(breed);
 
-            return response.status(200);
+            return response.status(200).json({success: "breed deleted"});
         } catch (error) {
             return response.status(404).json({error});
         }
@@ -93,18 +93,15 @@ class BreedController {
     }
 
     async topBreed(request: Request, response: Response) {
-        const DEFAULT_TOP_LIMIT = 10;
-        const {limit = DEFAULT_TOP_LIMIT} = request.query;
-
         try {
-            const schemaValidate = await topBreedSchema.validateAsync({limit});
+            const {limit = DEFAULT_TOP_LIMIT} = await topBreedSchema.validateAsync(request.query);
 
             const topBreeds = await getRepository(DogBreed)
                 .createQueryBuilder("dogbreed")
                 .leftJoin("dogbreed.comments", "comments")
                 .addSelect("COUNT(comments.id) as commentsCount")
                 .groupBy("dogbreed.id")
-                .limit(schemaValidate.limit)
+                .limit(limit)
                 .orderBy("commentsCount", "DESC")
                 .getMany();
 
@@ -118,14 +115,14 @@ class BreedController {
         const breedRepository = getRepository(DogBreed);
 
         try {
-            const schemaValidate = await addLikeSchema.validateAsync(request.body);
-            const breed = await breedRepository.findOne(schemaValidate.id);
+            const { breedId } = await addLikeSchema.validateAsync(request.body);
 
+            const breed = await breedRepository.findOne(breedId);
             if (!breed) {
                 return response.status(404).json({failed: "breed does not exist"});
             }
 
-            await breedRepository.save({id: schemaValidate.id, likes: breed.likes + 1});
+            await breedRepository.save({id: breedId, likes: breed.likes + 1});
 
             return response.status(201).json({message: "like added"});
         } catch (error) {
