@@ -15,15 +15,6 @@
 			"response": []
 		},
 		{
-			"name": "comments breed",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": null
-			},
-			"response": []
-		},
-		{
 			"name": "add like breed",
 			"request": {
 				"method": "GET",
@@ -181,7 +172,16 @@
 			"response": []
 		},
 		{
-			"name": "last comment",
+			"name": "comments breed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "comments",
 			"request": {
 				"method": "GET",
 				"header": [],
