@@ -3,6 +3,8 @@ import {getRepository} from "typeorm";
 import {Comment} from "../entity/Comment.entity";
 import {DogBreed} from "../entity/DogBreed.entity";
 import {addCommentSchema} from "../joi/comment/addCommentSchema";
+import {commentsSchema} from "../joi/comment/commentsSchema";
+import {idSchema} from "../joi/idSchema";
 
 class CommentController {
 
@@ -32,56 +34,79 @@ class CommentController {
         const {id} = request.params;
         const commentRepository = getRepository(Comment);
 
-        const comment = await commentRepository.findOne(id);
+        try {
+            await idSchema.validateAsync({id});
+            const comment = await commentRepository.findOne(id);
 
-        if (!comment) {
-            return response.status(404).json({error: "comment is not found"});
+            if (!comment) {
+                return response.status(404).json({error: "comment is not found"});
+            }
+
+            return response.status(200).json({comment});
+        } catch (error) {
+            return response.status(404).json({error});
         }
-
-        return response.status(200).json({comment});
     }
 
     async delete(request: Request, response: Response) {
         const {id} = request.params;
         const commentRepository = getRepository(Comment);
-
-        const comment = await commentRepository.findOne(id);
-
-        if (!comment) {
-            return response.status(404).json({failed: "comment is not found"});
-        }
-
-        await commentRepository.remove(comment);
-
-        return response.status(200);
-    }
-
-    async lastComment(request: Request, response: Response) {
-        const {limit} = request.query;
-        const commentRepository = getRepository(Comment);
         try {
-            let lastComment: Comment[];
+            await idSchema.validateAsync({id});
+            const comment = await commentRepository.findOne(id);
 
-            if (limit) {
-                lastComment = await commentRepository.find({
-                    relations: ["breed"],
-                    order: {createdAt: "DESC"},
-                    take: Number(limit),
-                });
-            } else {
-                lastComment = await commentRepository.find({
-                    relations: ["breed"],
-                    order: {
-                        createdAt: "DESC",
-                    },
-                });
+            if (!comment) {
+                return response.status(404).json({failed: "comment is not found"});
             }
 
-            return response.status(200).json({lastComment});
+            await commentRepository.remove(comment);
+
+            return response.status(200);
         } catch (error) {
             return response.status(404).json({error});
         }
+    }
 
+    async comments(request: Request, response: Response) {
+        const DEFAULT_COMMENTS_LIMIT = 25;
+        const {limit = DEFAULT_COMMENTS_LIMIT} = request.query;
+
+        const commentRepository = getRepository(Comment);
+
+        try {
+            await commentsSchema.validateAsync({limit});
+            const comments = await commentRepository.find({
+                relations: ["breed"],
+                order: {createdAt: "DESC"},
+                take: Number(limit),
+            });
+
+            return response.status(200).json({comments});
+        } catch (error) {
+            return response.status(404).json({error});
+        }
+    }
+
+    async commentsByBreed(request: Request, response: Response) {
+        const {id} = request.params;
+        const commentRepository = getRepository(Comment);
+        const breedRepository = getRepository(DogBreed);
+
+        try {
+            await idSchema.validateAsync({id});
+
+            if (!await breedRepository.findOne(id)) {
+                return response.status(404).json({message: "Breed is not exist"});
+            }
+
+            const comments = await commentRepository.createQueryBuilder("comment")
+                .where(`comment.breedId=${id}`)
+                .getMany();
+
+            return response.status(200).json({comments});
+        } catch (error) {
+            return response.status(404).json({error});
+        }
     }
 }
 

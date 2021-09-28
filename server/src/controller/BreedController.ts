@@ -4,6 +4,8 @@ import {getRepository} from "typeorm";
 import {DogBreed} from "../entity/DogBreed.entity";
 import {addBreedSchema} from "../joi/breed/addBreedSchema";
 import {addLikeSchema} from "../joi/breed/addLikeSchema";
+import {idSchema} from "../joi/idSchema";
+import {topBreedSchema} from "../joi/breed/topBreedSchema";
 
 interface IMulterRequest extends Request {
     file: File;
@@ -47,43 +49,69 @@ class BreedController {
     async one(request: Request, response: Response) {
         const {id} = request.params;
         const breedRepository = getRepository(DogBreed);
-        const breed = await breedRepository.findOne(id, {relations: ["comments"]});
-        if (!breed) {
-            return response.status(404).json({error: "Breed is not found"});
+        try {
+            await idSchema.validateAsync({id});
+
+            const breed = await breedRepository.findOne(id, {relations: ["comments"]});
+            if (!breed) {
+                return response.status(404).json({error: "Breed is not found"});
+            }
+
+            return response.status(200).json({breed});
+        } catch (error) {
+            return response.status(404).json({error})
         }
-        return response.status(200).json({breed});
     }
 
     async delete(request: Request, response: Response) {
         const {id} = request.params;
         const breedRepository = getRepository(DogBreed);
-        const breed = await breedRepository.findOne(id);
-        if (!breed) {
-            return response.status(404).json({failed: "Breed is not found"});
+
+        try {
+            await idSchema.validateAsync({id});
+
+            const breed = await breedRepository.findOne(id);
+            if (!breed) {
+                return response.status(404).json({failed: "Breed is not found"});
+            }
+
+            await breedRepository.remove(breed);
+
+            return response.status(200);
+        } catch (error) {
+            return response.status(404).json({error});
         }
-        await breedRepository.remove(breed);
-        return response.status(200);
+
     }
 
     async breedRandomly(request: Request, response: Response) {
         const breedRepository = getRepository(DogBreed);
+
         const breed = await breedRepository.createQueryBuilder("dogbreed").orderBy("RANDOM()").getOne();
+
         return response.status(200).json(breed);
     }
 
     async topBreed(request: Request, response: Response) {
-        const {limit} = request.query;
+        const DEFAULT_TOP_LIMIT = 10;
+        const {limit = DEFAULT_TOP_LIMIT} = request.query;
 
-        const topBreeds = await getRepository(DogBreed)
-            .createQueryBuilder("dogbreed")
-            .leftJoin("dogbreed.comments", "comments")
-            .addSelect("COUNT(comments.id) as commentsCount")
-            .groupBy("dogbreed.id")
-            .limit(Number(limit))
-            .orderBy("commentsCount", "DESC")
-            .getMany();
+        try {
+            const schemaValidate = await topBreedSchema.validateAsync({limit});
 
-        return response.status(200).json(topBreeds);
+            const topBreeds = await getRepository(DogBreed)
+                .createQueryBuilder("dogbreed")
+                .leftJoin("dogbreed.comments", "comments")
+                .addSelect("COUNT(comments.id) as commentsCount")
+                .groupBy("dogbreed.id")
+                .limit(schemaValidate.limit)
+                .orderBy("commentsCount", "DESC")
+                .getMany();
+
+            return response.status(200).json(topBreeds);
+        } catch (error) {
+            return response.status(404).json({error});
+        }
     }
 
     async addLike(request: Request, response: Response) {
@@ -102,18 +130,6 @@ class BreedController {
             return response.status(201).json({message: "like added"});
         } catch (error) {
             return response.status(500).json({error});
-        }
-    }
-
-    async comments(request: Request, response: Response) {
-        const {id} = request.params;
-        const breedRepository = getRepository(DogBreed);
-
-        try {
-            const {comments} = await breedRepository.findOne(id, {relations: ["comments"]});
-            return response.status(200).json({comments});
-        } catch (error) {
-            return response.status(404).json({error});
         }
     }
 }
