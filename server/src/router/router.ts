@@ -9,11 +9,14 @@ const commentController = new CommentController();
 
 router.get("/breeds", breedController.all);
 router.get("/breeds/randomly", breedController.breedRandomly);
-router.get("/breeds/:id", breedController.one);
-router.get("/breeds/top/:limit", breedController.topBreed);
+router.get("/breeds/top", breedController.topBreed);
+router.get("/breeds/:breedId", breedController.one);
 router.post("/breeds", uploadImage.single("image"), breedController.add);
-router.delete("/breeds/:id", breedController.delete);
+router.put("/breeds/likes", breedController.addLike);
+router.delete("/breeds/:breedId", breedController.delete);
 
-router.get("/comments/:id", commentController.one);
+router.get("/comments", commentController.comments);
+router.get("/comments/:commentId", commentController.one);
+router.get("/breeds/:breedId/comments", commentController.commentsByBreed);
 router.post("/comments", commentController.add);
-router.delete("/comments/:id", commentController.delete);
+router.delete("/comments/:commentId", commentController.delete);

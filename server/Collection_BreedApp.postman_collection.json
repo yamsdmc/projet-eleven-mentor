@@ -6,6 +6,74 @@
 	},
 	"item": [
 		{
+			"name": "random breeds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "add like breed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "top breeds",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "all breed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/api/breeds",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "one breed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/api/breeds/23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"breeds",
+						"23"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "add breed",
 			"request": {
 				"method": "POST",
@@ -84,7 +152,27 @@
 			"response": []
 		},
 		{
-			"name": "random breeds",
+			"name": "one comments",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/api/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"api",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comments breed",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -93,52 +181,11 @@
 			"response": []
 		},
 		{
-			"name": "top breeds",
+			"name": "comments",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": null
-			},
-			"response": []
-		},
-		{
-			"name": "all breed",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3010/api/breeds",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3010",
-					"path": [
-						"api",
-						"breeds"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "one breed",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3010/api/breeds/23",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3010",
-					"path": [
-						"api",
-						"breeds",
-						"23"
-					]
-				}
 			},
 			"response": []
 		},
@@ -172,26 +219,6 @@
 							"value": "rfrtr",
 							"disabled": true
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "one comments",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:3010/api/comments/1",
-					"host": [
-						"localhost"
-					],
-					"port": "3010",
-					"path": [
-						"api",
-						"comments",
-						"1"
 					]
 				}
 			},
