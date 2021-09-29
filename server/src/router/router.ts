@@ -7,6 +7,7 @@ export const router = express.Router();
 const breedController = new BreedController();
 const commentController = new CommentController();
 
+
 router.get("/breeds", breedController.all);
 router.get("/breeds/randomly", breedController.breedRandomly);
 router.get("/breeds/top", breedController.topBreed);
